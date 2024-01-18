@@ -44,7 +44,3 @@ class Line:
         canvas.create_line(x1, y1, x2, y2, )
         canvas.pack()
 
-
-win = Window(800, 600)
-win.wait_for_close()
-
