@@ -1,9 +1,28 @@
-from graphics import Window, Point, Line
+from graphics import Window, Point, Line, Cell
 
 def main():
-    win = Window(800, 600)
-    line = Line(Point(50,50), Point(400,400))
-    win.draw_line(line, "black")
+    win = Window(850, 600)
+
+    cells = [
+    Cell(50, 50, 100, 100, win),
+    Cell(100, 50, 150, 100, win, True, True, True, False),
+    Cell(150, 50, 200, 100, win, True, False, True, True),
+    Cell(200, 50, 250, 100, win, True, True, False, True),
+    Cell(250, 50, 300, 100, win, True, True, True, False),
+    Cell(300, 50, 350, 100, win, False, False, True, True),
+    Cell(350, 50, 400, 100, win, False, True, False, True),
+    Cell(400, 50, 450, 100, win, False, True, True, False),
+    Cell(450, 50, 500, 100, win, True, False, False, True),
+    Cell(500, 50, 550, 100, win, True, False, True, False),
+    Cell(550, 50, 600, 100, win, True, True, False, False),
+    Cell(600, 50, 650, 100, win, False, False, False, True),
+    Cell(650, 50, 700, 100, win, False, False, True, False),
+    Cell(700, 50, 750, 100, win, False, True, False, False),
+    Cell(750, 50, 800, 100, win, True, False, False, False)
+    ]
+    for cell in cells:
+        win.draw_cell(cell, fill_color="Black")
+
     win.wait_for_close()
 
 main()
