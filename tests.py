@@ -40,6 +40,26 @@ class Tests(unittest.TestCase):
             len(m3._cells[0]),
             num_rows
             )
+        
+    def test_entrance_exit_break(self):
+        num_cols = 10
+        num_rows = 10
+        m4 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        self.assertEqual(
+            len(m4._cells), 
+            num_cols,
+            )
+        self.assertEqual(
+            len(m4._cells[0]), 
+            num_rows
+            )
+        
+        if m4._cells[0][0].has_top_wall:
+            print("Failed to break entrance")
+
+        if m4._cells[-1][-1].has_bottom_wall:
+            print("Failed to break exit")
+        
     
         
 if __name__ == "__main__":
