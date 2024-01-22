@@ -115,15 +115,16 @@ class Maze:
             for cell in col:
                 cell.visited = False
 
-    # helper for _sole_r() method to improve readability while iteratively checking 
+    # helper for _solve_r() method to improve readability while iteratively checking 
     # adjacent cells-x,y represent i,j indexes for each-for open path.  
     # if cell is valid, move is drwan and _solve_r() is called recursively on successive
     # cells, otherwise, an undo move is drawn
     def _try_cell(self, current, x, y):
         current.draw_move(self._cells[x][y])
-        if self._solve_r(x,y) == True:
+        if self._solve_r(x,y):
             return True
-        current.draw_move(self._cells[x][y], True)    
+        current.draw_move(self._cells[x][y], True)
+        return False
     
     def _solve_r(self, i, j):
         self._animate()
@@ -132,8 +133,8 @@ class Maze:
         current = self._cells[i][j]
         current.visited = True
         
-        # if current cell is end cell, maze is solved
-        if current == self._cells[self._num_cols-1][self._num_rows-1]:
+        # if end cell is reached, maze is solved
+        if self._cells[-1][-1].visited:
             return True
         
         l = i-1
@@ -141,18 +142,22 @@ class Maze:
         u = j-1
         d = j+1
         directions = [[l, j, 'left'], [i, u, 'top'], [r, j, 'right'], [i, d, 'bottom']]
-        for x, y, dir in directions:
         # Make sure we are within grid and path is open, then _try_cell() recrusively attempts
         # to check and draw path through successive cells in same direction
+        for x, y, dir in directions:
             if 0 <= x < self._num_cols and 0 <= y < self._num_rows:
                 if dir == 'left' and not current.has_left_wall and not self._cells[x][y].visited:
-                    self._try_cell(current, x, y)
-                elif dir == 'top' and not current.has_top_wall and not self._cells[x][y].visited:
-                    self._try_cell(current, x, y)
-                elif dir == 'right' and not current.has_right_wall and not self._cells[x][y].visited:
-                    self._try_cell(current, x, y)
-                elif dir == 'bottom' and not current.has_bottom_wall and not self._cells[x][y].visited:
-                    self._try_cell(current, x, y)
+                    if self._try_cell(current, x, y):
+                        return True
+                if dir == 'top' and not current.has_top_wall and not self._cells[x][y].visited:
+                    if self._try_cell(current, x, y):
+                        return True
+                if dir == 'right' and not current.has_right_wall and not self._cells[x][y].visited:
+                    if self._try_cell(current, x, y):
+                        return True
+                if dir == 'bottom' and not current.has_bottom_wall and not self._cells[x][y].visited:
+                    if self._try_cell(current, x, y):
+                        return True
         
         # signifies a wall or dead end in attempted direction, returns false 
         return False
