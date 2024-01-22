@@ -115,5 +115,4 @@ class Maze:
         for col in self._cells:
             for cell in col:
                 cell.visited = False
-
             
