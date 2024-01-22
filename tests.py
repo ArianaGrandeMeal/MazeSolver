@@ -60,6 +60,18 @@ class Tests(unittest.TestCase):
         if m4._cells[-1][-1].has_bottom_wall:
             print("Failed to break exit")
         
+    def test_reset_visited(self):
+        num_cols = 5
+        num_rows = 5
+        m5 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        #m5._cells[2][2].visited = True
+        
+        for col in m5._cells:
+            for cell in col:
+                self.assertEqual(
+                    cell.visited,
+                    False,
+                )
     
         
 if __name__ == "__main__":
