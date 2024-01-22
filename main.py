@@ -20,7 +20,7 @@ def main():
     if maze.solve():
         print("maze solved!")
     else:
-        print("maze can note be solved!")
+        print("maze can not be solved!")
     win.wait_for_close()
 
 main()
